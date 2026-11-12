@@ -1,0 +1,50 @@
+:host {
+  display: contents;
+}
+
+.dialog-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  background: rgb(12 27 22 / 62%);
+}
+
+.dialog {
+  width: min(100%, 30rem);
+  padding: 1.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-lg);
+}
+
+.dialog__title {
+  margin: 0 0 0.5rem;
+  font-size: 1.3rem;
+}
+
+.dialog__message {
+  margin: 0 0 1.25rem;
+  color: var(--color-muted);
+  line-height: 1.6;
+}
+
+.dialog__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: flex-end;
+}
+
+@media (max-width: 420px) {
+  .dialog {
+    padding: 1.15rem;
+  }
+
+  .dialog__actions .btn {
+    flex: 1 1 100%;
+  }
+}

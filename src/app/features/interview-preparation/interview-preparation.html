@@ -1,0 +1,192 @@
+<div class="page container">
+  <header class="page-head">
+    <p class="eyebrow">Preparação demonstrativa</p>
+    <h1>Prepare-se para a conversa</h1>
+    <p class="lead">
+      Conheça cinco perguntas comuns em processos para Jovem Aprendiz, estágio e primeiro emprego.
+      Cada uma traz uma orientação de resposta e um exemplo fictício.
+    </p>
+    <app-simulation-alert />
+    <div class="info-callout">
+      <strong>Sem avaliação, gravação ou pontuação.</strong>
+      <p>
+        Use as perguntas como referência de estudo. O TrampoIA não analisa o que você fala, não
+        grava áudio e não mede sua performance.
+      </p>
+    </div>
+  </header>
+
+  <div class="interview-layout">
+    <aside class="question-panel" aria-label="Roteiro de perguntas">
+      <div class="progress-block">
+        <div class="progress-block__head">
+          <h2>Seu roteiro</h2>
+          <span>{{ state.reviewedCount() }} de {{ questions.length }} revisadas</span>
+        </div>
+        <div
+          class="progress-bar"
+          role="progressbar"
+          aria-valuemin="0"
+          [attr.aria-valuemax]="questions.length"
+          [attr.aria-valuenow]="state.reviewedCount()"
+          [attr.aria-valuetext]="state.reviewedCount() + ' de ' + questions.length + ' perguntas revisadas'"
+        >
+          <span class="progress-bar__fill" [style.width.%]="progressPercent()"></span>
+        </div>
+      </div>
+
+      <ol class="question-list">
+        @for (question of questions; track question.id; let i = $index) {
+          <li>
+            <button
+              type="button"
+              class="question-list__item"
+              [class.question-list__item--active]="selectedId() === question.id"
+              [attr.aria-current]="selectedId() === question.id ? 'true' : null"
+              (click)="selectQuestion(question.id)"
+            >
+              <span class="question-list__number" aria-hidden="true">{{ i + 1 }}</span>
+              <span class="question-list__text">{{ question.question }}</span>
+              @if (isReviewed(question.id)) {
+                <span class="question-list__check" aria-hidden="true">✓</span>
+                <span class="sr-only">Revisada</span>
+              }
+            </button>
+          </li>
+        }
+      </ol>
+
+      <button type="button" class="btn btn-quiet btn-block" (click)="requestResetProgress()">
+        Reiniciar progresso
+      </button>
+    </aside>
+
+    <section class="question-detail" aria-labelledby="question-heading">
+      <div class="question-detail__top">
+        <span class="badge badge--warning">Conteúdo demonstrativo</span>
+        <span class="question-detail__count">
+          Pergunta {{ selectedIndex() + 1 }} de {{ questions.length }}
+        </span>
+      </div>
+
+      <div class="question-title-row">
+        <h2 id="question-heading" tabindex="-1">{{ selectedQuestion().question }}</h2>
+        <button
+          type="button"
+          class="btn btn-quiet question-detail__toggle"
+          aria-controls="question-details"
+          [attr.aria-expanded]="detailsOpen()"
+          (click)="toggleDetails()"
+        >
+          @if (detailsOpen()) {
+            Recolher orientações
+          } @else {
+            Mostrar orientações
+          }
+        </button>
+      </div>
+
+      @if (detailsOpen()) {
+        <div id="question-details" class="question-details">
+          <div class="qa-block">
+            <h3>Por que essa pergunta costuma ser feita</h3>
+            <p>{{ selectedQuestion().intent }}</p>
+          </div>
+
+          <div class="qa-block">
+            <h3>Como organizar a resposta</h3>
+            <ol class="qa-list">
+              @for (step of selectedQuestion().answerStructure; track step) {
+                <li>{{ step }}</li>
+              }
+            </ol>
+          </div>
+
+          <div class="qa-block qa-block--answer">
+            <h3>Resposta-modelo fictícia</h3>
+            <blockquote>{{ selectedQuestion().simulatedAnswer }}</blockquote>
+            <p class="qa-note">
+              Exemplo predefinido para demonstrar uma possível estrutura. Não é uma resposta
+              perfeita e não deve ser decorada sem adaptação.
+            </p>
+          </div>
+
+          <div class="qa-block qa-block--cautions">
+            <h3>Cuidados e erros comuns</h3>
+            <ul class="qa-list">
+              @for (caution of selectedQuestion().cautions; track caution) {
+                <li>{{ caution }}</li>
+              }
+            </ul>
+          </div>
+        </div>
+      }
+
+      <div class="question-actions">
+        <button
+          type="button"
+          class="btn"
+          [class.btn-primary]="!selectedReviewed()"
+          [class.btn-secondary]="selectedReviewed()"
+          [attr.aria-pressed]="selectedReviewed()"
+          (click)="toggleReviewed()"
+        >
+          @if (selectedReviewed()) {
+            Remover marcação de revisada
+          } @else {
+            Marcar como revisada
+          }
+        </button>
+
+        <div class="question-nav">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            [disabled]="!hasPrevious()"
+            (click)="previousQuestion()"
+          >
+            ← Anterior
+          </button>
+          <button
+            type="button"
+            class="btn btn-secondary"
+            [disabled]="!hasNext()"
+            (click)="nextQuestion()"
+          >
+            Próxima →
+          </button>
+        </div>
+      </div>
+
+      @if (announcement()) {
+        <p class="notice" role="status" aria-live="polite">{{ announcement() }}</p>
+      }
+
+      <p class="question-disclaimer">
+        As marcações de revisão existem apenas nesta sessão e desaparecem ao recarregar a página.
+        Nenhuma resposta é enviada, avaliada ou armazenada.
+      </p>
+    </section>
+  </div>
+
+  <section class="interview-links" aria-labelledby="interview-links-title">
+    <div>
+      <h2 id="interview-links-title">Quer revisar o currículo antes?</h2>
+      <p>Você pode voltar, ajustar as informações fictícias e imprimir novamente.</p>
+    </div>
+    <div class="btn-row">
+      <a class="btn btn-secondary" routerLink="/curriculo/visualizar">Ver currículo demonstrativo</a>
+      <a class="btn btn-quiet" routerLink="/sobre">Sobre este protótipo</a>
+    </div>
+  </section>
+</div>
+
+<app-confirmation-dialog
+  [open]="resetDialogOpen()"
+  title="Reiniciar progresso da entrevista?"
+  message="Isso desmarca as perguntas revisadas nesta sessão. O currículo demonstrativo e os dados fictícios do formulário não serão alterados."
+  confirmLabel="Limpar progresso"
+  cancelLabel="Manter progresso"
+  (confirmed)="confirmResetProgress()"
+  (cancelled)="cancelResetProgress()"
+/>

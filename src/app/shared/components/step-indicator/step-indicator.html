@@ -1,0 +1,24 @@
+<nav aria-label="Etapas do formulário de currículo">
+  <ol class="step-indicator">
+    @for (step of steps(); track step; let index = $index) {
+      <li
+        class="step-indicator__item"
+        [class.step-indicator__item--current]="index === current()"
+        [class.step-indicator__item--done]="index < current()"
+        [attr.aria-current]="index === current() ? 'step' : null"
+      >
+        <span class="step-indicator__number" aria-hidden="true">
+          @if (index < current()) {
+            ✓
+          } @else {
+            {{ index + 1 }}
+          }
+        </span>
+        <span class="step-indicator__label">
+          <span class="step-indicator__sr">Etapa {{ index + 1 }} de {{ steps().length }}:</span>
+          {{ step }}
+        </span>
+      </li>
+    }
+  </ol>
+</nav>

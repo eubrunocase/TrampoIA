@@ -1,0 +1,156 @@
+<div class="page container-narrow about-page">
+  <header class="page-head">
+    <p class="eyebrow">Sobre o projeto</p>
+    <h1>Sobre o protótipo TrampoIA</h1>
+    <p class="lead">
+      O TrampoIA é uma demonstração acadêmica de uma experiência de apoio a jovens que estão
+      organizando as primeiras informações profissionais e se preparando para uma entrevista.
+    </p>
+    <app-simulation-alert />
+  </header>
+
+  <section class="about-section" aria-labelledby="finalidade-title">
+    <h2 id="finalidade-title">Finalidade acadêmica</h2>
+    <p>
+      Este protótipo existe para validar compreensão, utilidade percebida e usabilidade de um fluxo
+      guiado. Ele não é um produto comercial, não está em operação e não substitui orientação
+      profissional, processos seletivos ou atendimento especializado.
+    </p>
+    <p>
+      A ideia procura investigar uma dificuldade comum: transformar vivências escolares,
+      comunitárias, familiares e informais em informações apresentáveis, sem exigir que a pessoa já
+      domine a linguagem de currículos e entrevistas.
+    </p>
+  </section>
+
+  <section class="about-section" id="como-funciona" aria-labelledby="como-funciona-title">
+    <h2 id="como-funciona-title">Como este protótipo funciona</h2>
+    <div class="about-steps">
+      <article>
+        <span aria-hidden="true">1</span>
+        <h3>Um perfil fictício é carregado</h3>
+        <p>
+          O formulário começa preenchido com uma pessoa de exemplo. Todos os campos podem ser
+          editados, mas nenhum dado pessoal real deve ser informado.
+        </p>
+      </article>
+      <article>
+        <span aria-hidden="true">2</span>
+        <h3>Regras locais organizam o currículo</h3>
+        <p>
+          O sistema apenas organiza os campos, oculta seções vazias e escolhe descrições
+          predefinidas para cada tipo de vivência. A escolha é determinística e não usa IA.
+        </p>
+      </article>
+      <article>
+        <span aria-hidden="true">3</span>
+        <h3>O roteiro de entrevista é predefinido</h3>
+        <p>
+          As cinco perguntas, as orientações e as respostas-modelo foram escritas previamente. Nada
+          é gerado, avaliado ou pontuado durante o uso.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class="about-section" aria-labelledby="diferenca-title">
+    <h2 id="diferenca-title">Protótipo, simulação e produto real</h2>
+    <div class="compare-grid">
+      <article class="compare-card">
+        <h3>Protótipo</h3>
+        <p>
+          Uma versão navegável para testar a experiência antes de investir em uma implementação
+          completa. O objetivo é aprender com as pessoas que usam.
+        </p>
+      </article>
+      <article class="compare-card">
+        <h3>Simulação</h3>
+        <p>
+          Informações, descrições e respostas são exemplos predefinidos. A interface deve deixar
+          claro o tempo todo que não existe inteligência artificial real nesta versão.
+        </p>
+      </article>
+      <article class="compare-card">
+        <h3>Produto real</h3>
+        <p>
+          Exigiria pesquisa com usuários, revisão de conteúdo, escolhas claras de privacidade,
+          infraestrutura segura e validação responsável antes de qualquer uso público.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class="about-section about-section--limits" id="nao-faz" aria-labelledby="nao-faz-title">
+    <h2 id="nao-faz-title">O que este protótipo não faz</h2>
+    <ul class="about-checklist">
+      <li>Não utiliza inteligência artificial generativa, LLM ou qualquer API de IA.</li>
+      <li>Não realiza chamadas para APIs externas, nem mesmo para demonstração.</li>
+      <li>Não possui backend, funções serverless, banco de dados ou autenticação.</li>
+      <li>Não usa localStorage, sessionStorage, cookies ou IndexedDB.</li>
+      <li>Não coleta, envia ou armazena dados pessoais.</li>
+      <li>Não busca vagas, não indica empresas e não faz candidaturas.</li>
+      <li>Não analisa currículos de forma automatizada.</li>
+      <li>Não avalia respostas de entrevista, não grava áudio e não gera pontuação.</li>
+      <li>Não gera PDF em servidor. A impressão usa apenas o recurso do navegador.</li>
+      <li>Não garante contratação, aprovação ou qualquer resultado em processos seletivos.</li>
+    </ul>
+  </section>
+
+  <section class="about-section" aria-labelledby="publico-title">
+    <h2 id="publico-title">Público pretendido</h2>
+    <p>
+      A avaliação é planejada principalmente para pessoas com 18 anos ou mais, priorizando jovens
+      de Salvador que buscam o primeiro emprego, oportunidades de Jovem Aprendiz ou estágio, têm
+      pouca experiência com currículos e podem se sentir inseguros em entrevistas.
+    </p>
+    <p>
+      O uso pelo celular é considerado prioritário. Por isso, a interface foi construída em
+      abordagem mobile-first, com textos curtos, etapas escaneáveis e botões com área de toque
+      confortável.
+    </p>
+  </section>
+
+  <section class="about-section" aria-labelledby="limitacoes-title">
+    <h2 id="limitacoes-title">Limitações desta demonstração</h2>
+    <ul class="about-list">
+      <li>O estado existe somente na memória: ao recarregar a página, os dados fictícios podem ser restaurados.</li>
+      <li>Não há histórico, conta, sincronização entre dispositivos ou exportação para outro formato além da impressão.</li>
+      <li>As descrições de vivências não refletem uma análise individual do relato escrito.</li>
+      <li>Os conteúdos de entrevista são exemplos genéricos e não substituem preparação específica para uma vaga.</li>
+      <li>A interface não representa um serviço oficial de emprego, escola ou instituição.</li>
+    </ul>
+  </section>
+
+  <section class="about-section" aria-labelledby="futuro-title">
+    <h2 id="futuro-title">O que uma versão futura exigiria</h2>
+    <p>
+      Estas são necessidades hipotéticas para uma evolução responsável. Nenhuma delas está
+      implementada neste protótipo:
+    </p>
+    <ul class="about-list">
+      <li>Pesquisa e validação contínuas com o público pretendido.</li>
+      <li>Revisão de conteúdo por pessoas com experiência em orientação profissional e educação.</li>
+      <li>Diretrizes de privacidade, consentimento e proteção de dados adequadas ao contexto.</li>
+      <li>Testes de acessibilidade com tecnologias assistivas e diferentes níveis de letramento digital.</li>
+      <li>Infraestrutura segura e processos claros de suporte, caso dados reais venham a ser tratados.</li>
+      <li>Transparência explícita sobre qualquer recurso automatizado que venha a ser estudado.</li>
+    </ul>
+  </section>
+
+  <section class="about-section about-section--privacy" aria-labelledby="privacidade-title">
+    <h2 id="privacidade-title">Privacidade e uso responsável</h2>
+    <p>
+      <strong>Não informe dados pessoais reais.</strong> Use apenas as informações fictícias que já
+      aparecem no formulário ou invente exemplos sem relação com a sua vida. A aplicação funciona
+      no navegador e não envia os campos para nenhum servidor.
+    </p>
+    <p>
+      O conteúdo do currículo e das respostas de entrevista é demonstrativo. Ele não deve ser usado
+      como garantia de contratação, diagnóstico profissional ou avaliação de competências.
+    </p>
+    <div class="btn-row">
+      <a class="btn btn-primary" routerLink="/curriculo">Iniciar demonstração</a>
+      <a class="btn btn-secondary" routerLink="/entrevista">Ver perguntas de entrevista</a>
+    </div>
+  </section>
+</div>

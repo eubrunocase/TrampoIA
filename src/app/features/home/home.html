@@ -1,0 +1,166 @@
+<div class="home">
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="container hero__grid">
+      <div class="hero__content">
+        <p class="eyebrow">Primeiro emprego, primeiro passo</p>
+        <h1 id="hero-title">Seu primeiro passo para apresentar sua trajetória profissional</h1>
+        <p class="lead">
+          O TrampoIA é um protótipo demonstrativo que ajuda a organizar vivências em um currículo
+          simulado e a conhecer respostas possíveis para uma entrevista de Jovem Aprendiz, estágio
+          ou primeiro emprego.
+        </p>
+
+        <app-simulation-alert />
+
+        <div class="hero__actions">
+          <a class="btn btn-primary btn-lg" routerLink="/curriculo">Iniciar demonstração</a>
+          <a class="btn btn-secondary btn-lg" routerLink="/sobre" fragment="como-funciona">
+            Entenda como este protótipo funciona
+          </a>
+        </div>
+        <p class="hero__fineprint">
+          Leva poucos minutos. O formulário já começa com um perfil fictício que pode ser editado.
+        </p>
+      </div>
+
+      <aside class="hero__preview" aria-label="Resumo do caminho nesta demonstração">
+        <div class="preview-card">
+          <div class="preview-card__top">
+            <span class="badge badge--warning">Conteúdo simulado</span>
+            <span class="preview-card__dots" aria-hidden="true">•••</span>
+          </div>
+          <h2>Seu caminho nesta demonstração</h2>
+          <ol class="preview-list">
+            <li>
+              <span class="preview-list__number" aria-hidden="true">1</span>
+              <div>
+                <strong>Organize informações</strong>
+                <p>Revise um perfil fictício em quatro etapas curtas.</p>
+              </div>
+            </li>
+            <li>
+              <span class="preview-list__number" aria-hidden="true">2</span>
+              <div>
+                <strong>Veja o currículo demonstrativo</strong>
+                <p>As seções são montadas por regras locais e predefinidas.</p>
+              </div>
+            </li>
+            <li>
+              <span class="preview-list__number" aria-hidden="true">3</span>
+              <div>
+                <strong>Prepare a entrevista</strong>
+                <p>Leia orientações e respostas-modelo fictícias.</p>
+              </div>
+            </li>
+          </ol>
+          <p class="preview-card__note">
+            As descrições do currículo são exemplos predefinidos. Nenhuma IA analisa o que você
+            escreve.
+          </p>
+        </div>
+        <span class="hero__stamp" aria-hidden="true">demonstração</span>
+      </aside>
+    </div>
+  </section>
+
+  <section class="container feature-section" aria-labelledby="feature-title">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Duas ferramentas, uma demonstração</p>
+        <h2 id="feature-title" class="section-title">O que você pode explorar</h2>
+      </div>
+      <p>
+        Cada parte funciona de forma independente, mas foi pensada para ser usada na ordem que
+        fizer sentido para você.
+      </p>
+    </div>
+
+    <div class="feature-grid">
+      <article class="feature-card">
+        <span class="feature-card__number" aria-hidden="true">01</span>
+        <h3>Organizar currículo</h3>
+        <p>
+          Reúna objetivo, formação, vivências e competências em uma estrutura simples — inclusive
+          experiências escolares, comunitárias e informais.
+        </p>
+        <ul class="feature-card__list">
+          <li>Formulário guiado em quatro etapas</li>
+          <li>Seções vazias ficam ocultas</li>
+          <li>Revisão e impressão pelo navegador</li>
+        </ul>
+        <a class="feature-card__link" routerLink="/curriculo">
+          Começar pelo currículo <span aria-hidden="true">→</span>
+        </a>
+      </article>
+
+      <article class="feature-card feature-card--soft">
+        <span class="feature-card__number" aria-hidden="true">02</span>
+        <h3>Preparar entrevista</h3>
+        <p>
+          Conheça perguntas comuns, entenda por que elas aparecem e leia uma resposta-modelo
+          fictícia para usar como referência.
+        </p>
+        <ul class="feature-card__list">
+          <li>Cinco perguntas predefinidas</li>
+          <li>Dicas, cuidados e estrutura de resposta</li>
+          <li>Marcação local de perguntas revisadas</li>
+        </ul>
+        <a class="feature-card__link" routerLink="/entrevista">
+          Ver perguntas demonstrativas <span aria-hidden="true">→</span>
+        </a>
+      </article>
+    </div>
+  </section>
+
+  <section class="container how" aria-labelledby="how-title">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Como a demonstração funciona</p>
+        <h2 id="how-title" class="section-title">Quatro passos, sem pressão</h2>
+      </div>
+      <p>Você pode voltar, editar e reiniciar quando quiser. Nada é enviado para fora do navegador.</p>
+    </div>
+    <ol class="steps-grid">
+      <li>
+        <span class="steps-grid__number" aria-hidden="true">1</span>
+        <h3>Revise os dados fictícios</h3>
+        <p>O formulário já começa preenchido com um perfil de exemplo.</p>
+      </li>
+      <li>
+        <span class="steps-grid__number" aria-hidden="true">2</span>
+        <h3>Ajuste o que quiser</h3>
+        <p>Edite as etapas, selecione vivências e competências demonstrativas.</p>
+      </li>
+      <li>
+        <span class="steps-grid__number" aria-hidden="true">3</span>
+        <h3>Veja o currículo</h3>
+        <p>O resultado é montado apenas com regras locais, sem análise automática.</p>
+      </li>
+      <li>
+        <span class="steps-grid__number" aria-hidden="true">4</span>
+        <h3>Pratique a entrevista</h3>
+        <p>Leia as orientações e marque o que já revisou nesta sessão.</p>
+      </li>
+    </ol>
+  </section>
+
+  <section class="container transparency" aria-labelledby="transparency-title">
+    <div class="transparency__card">
+      <div class="transparency__content">
+        <p class="eyebrow">Transparência desde o início</p>
+        <h2 id="transparency-title" class="section-title">Um protótipo, não um produto de IA</h2>
+        <p>
+          A proposta é validar uma experiência de apoio antes de qualquer implementação real de
+          inteligência artificial. Por isso, todo o conteúdo é simulado e predefinido.
+        </p>
+        <a class="btn btn-secondary" routerLink="/sobre">Ler sobre o protótipo</a>
+      </div>
+      <ul class="transparency__list">
+        <li>Nenhuma chamada para APIs de IA</li>
+        <li>Nenhum backend, banco de dados ou login</li>
+        <li>Nenhum armazenamento no navegador</li>
+        <li>Nenhuma promessa de contratação</li>
+      </ul>
+    </div>
+  </section>
+</div>

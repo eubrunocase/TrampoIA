@@ -1,0 +1,23 @@
+@if (compact()) {
+  <aside class="simulation-alert simulation-alert--compact" role="note" aria-label="Aviso de protótipo demonstrativo">
+    <span class="simulation-alert__icon" aria-hidden="true">!</span>
+    <p>
+      <strong>Protótipo demonstrativo:</strong> conteúdo simulado e dados fictícios. Nenhuma IA real
+      é usada.
+    </p>
+    <a routerLink="/sobre" class="simulation-alert__link">Entenda como funciona</a>
+  </aside>
+} @else {
+  <aside class="simulation-alert simulation-alert--full" role="note" aria-label="Aviso de protótipo demonstrativo">
+    <span class="simulation-alert__icon" aria-hidden="true">!</span>
+    <div class="simulation-alert__content">
+      <h2 class="simulation-alert__title">Protótipo demonstrativo</h2>
+      <p>
+        O TrampoIA não utiliza inteligência artificial generativa nesta versão. As informações,
+        currículos, perguntas e respostas são simulados. Nenhum dado é enviado para servidor ou
+        armazenado em banco de dados. <strong>Não informe dados pessoais reais.</strong>
+      </p>
+      <a routerLink="/sobre" class="simulation-alert__link">Entenda como este protótipo funciona</a>
+    </div>
+  </aside>
+}

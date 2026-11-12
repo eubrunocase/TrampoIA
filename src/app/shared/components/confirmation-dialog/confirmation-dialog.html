@@ -1,0 +1,24 @@
+@if (open()) {
+  <div class="dialog-backdrop" (click)="onBackdropClick($event)">
+    <div
+      #dialog
+      class="dialog"
+      role="alertdialog"
+      aria-modal="true"
+      aria-labelledby="confirmation-dialog-title"
+      aria-describedby="confirmation-dialog-message"
+      (keydown)="onDialogKeydown($event)"
+    >
+      <h2 id="confirmation-dialog-title" class="dialog__title">{{ title() }}</h2>
+      <p id="confirmation-dialog-message" class="dialog__message">{{ message() }}</p>
+      <div class="dialog__actions">
+        <button #cancelButton type="button" class="btn btn-secondary" (click)="cancelled.emit()">
+          {{ cancelLabel() }}
+        </button>
+        <button type="button" class="btn btn-primary" (click)="confirmed.emit()">
+          {{ confirmLabel() }}
+        </button>
+      </div>
+    </div>
+  </div>
+}

@@ -1,0 +1,157 @@
+<div class="page container resume-page">
+  <header class="resume-preview-head">
+    <p class="eyebrow">Resultado demonstrativo</p>
+    <h1>Currículo demonstrativo</h1>
+    <p class="lead">
+      Este é o resultado montado a partir das informações fictícias do formulário. Revise com
+      calma, edite se precisar e use a impressão do navegador se quiser guardar uma cópia.
+    </p>
+
+    <app-simulation-alert />
+
+    @if (state.resumeGenerated()) {
+      <p class="notice" role="status">
+        Currículo demonstrativo atualizado a partir das informações fictícias. Nenhuma IA analisou
+        o conteúdo.
+      </p>
+    }
+
+    @if (announcement()) {
+      <p class="notice" role="status" aria-live="polite">{{ announcement() }}</p>
+    }
+
+    <div class="resume-toolbar" aria-label="Ações do currículo demonstrativo">
+      <a class="btn btn-primary" routerLink="/curriculo" (click)="prepareEdit()">
+        Editar informações
+      </a>
+      <a class="btn btn-secondary" routerLink="/entrevista">Ir para preparação de entrevista</a>
+      <button type="button" class="btn btn-secondary" (click)="printResume()">
+        Imprimir currículo demonstrativo
+      </button>
+      <button type="button" class="btn btn-quiet" (click)="requestReset()">
+        Reiniciar demonstração
+      </button>
+    </div>
+    <p class="resume-hint">
+      Dica: na janela de impressão, você pode escolher “Salvar como PDF”. Nenhum arquivo é gerado
+      por um servidor.
+    </p>
+
+    <div class="resume-explain info-callout">
+      <strong>Descrições predefinidas, sem análise automática.</strong>
+      <p>
+        Esta descrição é um exemplo predefinido para demonstrar como uma vivência pode ser
+        apresentada. Nenhuma IA analisou o texto. As descrições são escolhidas localmente conforme
+        o tipo da experiência.
+      </p>
+    </div>
+  </header>
+
+  @if (resume().visibleSections.length === 0) {
+    <app-empty-state
+      title="Ainda não há informações para mostrar"
+      message="Volte ao formulário demonstrativo e preencha ao menos uma seção com dados fictícios."
+    >
+      <a class="btn btn-primary" routerLink="/curriculo">Preencher informações fictícias</a>
+    </app-empty-state>
+  } @else {
+    <article class="resume-sheet" aria-labelledby="resume-name">
+      <p class="resume-demo-badge">CURRÍCULO DEMONSTRATIVO - DADOS FICTÍCIOS</p>
+
+      <header class="resume-header">
+        <h2 id="resume-name">{{ resume().displayName }}</h2>
+        @if (resume().targetOpportunity || resume().interestArea) {
+          <p class="resume-tagline">
+            @if (resume().targetOpportunity) {
+              <span>{{ resume().targetOpportunity }}</span>
+            }
+            @if (resume().targetOpportunity && resume().interestArea) {
+              <span class="resume-tagline__divider" aria-hidden="true">·</span>
+            }
+            @if (resume().interestArea) {
+              <span>Interesse em {{ resume().interestArea }}</span>
+            }
+          </p>
+        }
+        <p class="resume-demo-line">Documento de exemplo. Não representa uma pessoa real.</p>
+      </header>
+
+      @if (resume().professionalGoal) {
+        <section class="resume-section" aria-labelledby="resume-goal">
+          <h3 id="resume-goal">Objetivo profissional</h3>
+          <p>{{ resume().professionalGoal }}</p>
+        </section>
+      }
+
+      @if (resume().educationLines.length > 0) {
+        <section class="resume-section" aria-labelledby="resume-education">
+          <h3 id="resume-education">Formação</h3>
+          <ul class="resume-education-list">
+            @for (line of resume().educationLines; track $index) {
+              <li>{{ line }}</li>
+            }
+          </ul>
+        </section>
+      }
+
+      @if (resume().experiences.length > 0) {
+        <section class="resume-section" aria-labelledby="resume-experiences">
+          <h3 id="resume-experiences">Experiências e vivências</h3>
+          <div class="resume-experience-list">
+            @for (experience of resume().experiences; track experience.title) {
+              <article class="resume-experience">
+                <h4>{{ experience.title }}</h4>
+                <p>{{ experience.description }}</p>
+                @if (experience.sourceNote) {
+                  <p class="resume-source-note">
+                    <span>Relato fictício informado no formulário:</span> {{ experience.sourceNote }}
+                  </p>
+                }
+              </article>
+            }
+          </div>
+        </section>
+      }
+
+      @if (resume().courses.length > 0) {
+        <section class="resume-section" aria-labelledby="resume-courses">
+          <h3 id="resume-courses">Cursos e oficinas</h3>
+          <ul class="resume-course-list">
+            @for (course of resume().courses; track $index) {
+              <li>
+                <span>{{ course.name }}</span>
+                <span class="resume-course-status">{{ course.status }}</span>
+              </li>
+            }
+          </ul>
+        </section>
+      }
+
+      @if (resume().skills.length > 0) {
+        <section class="resume-section" aria-labelledby="resume-skills">
+          <h3 id="resume-skills">Competências</h3>
+          <ul class="resume-skills">
+            @for (skill of resume().skills; track skill) {
+              <li>{{ skill }}</li>
+            }
+          </ul>
+        </section>
+      }
+
+      <footer class="resume-footer">
+        TrampoIA · Documento demonstrativo montado localmente por regras predefinidas. Nenhuma IA
+        real, backend ou banco de dados.
+      </footer>
+    </article>
+  }
+</div>
+
+<app-confirmation-dialog
+  [open]="showResetDialog()"
+  title="Reiniciar demonstração?"
+  message="Isso restaura o perfil fictício inicial, limpa o progresso da entrevista e volta o formulário para a primeira etapa. Nenhum dado real é afetado."
+  confirmLabel="Reiniciar demonstração"
+  cancelLabel="Manter dados"
+  (confirmed)="confirmReset()"
+  (cancelled)="cancelReset()"
+/>

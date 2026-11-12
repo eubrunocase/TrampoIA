@@ -1,0 +1,561 @@
+<div class="page container">
+  <header class="page-head">
+    <p class="eyebrow">Formulário guiado · dados fictícios</p>
+    <h1>Monte seu currículo demonstrativo</h1>
+    <p class="lead">
+      Avance por quatro etapas curtas e ajuste apenas informações de exemplo. Você pode voltar e
+      editar quando quiser. Nada é enviado para um servidor.
+    </p>
+    <app-simulation-alert />
+  </header>
+
+  <app-step-indicator [steps]="stepLabels" [current]="currentStep()" />
+
+  <form class="form" [formGroup]="form" (ngSubmit)="generate()" novalidate>
+    @switch (currentStep()) {
+      @case (0) {
+        <section class="form-section" aria-labelledby="step-heading">
+          <div class="form-section__head">
+            <p class="eyebrow">Etapa 1 de 4</p>
+            <h2 id="step-heading" tabindex="-1">Objetivo profissional</h2>
+            <p>Comece escolhendo o tipo de oportunidade que você quer explorar nesta demonstração.</p>
+          </div>
+
+          <fieldset class="field-group">
+            <legend>Qual oportunidade você quer explorar?</legend>
+            <div class="option-grid">
+              @for (option of targetOpportunities; track option) {
+                <label class="option-card">
+                  <input
+                    type="radio"
+                    formControlName="targetOpportunity"
+                    [value]="option"
+                    [attr.aria-invalid]="showErrors() && form.controls.targetOpportunity.invalid"
+                    [attr.aria-describedby]="
+                      showErrors() && form.controls.targetOpportunity.invalid
+                        ? 'target-opportunity-error'
+                        : null
+                    "
+                  />
+                  <span class="option-card__label">
+                    {{ option }}
+                    <span class="option-card__hint">{{ targetOpportunityHints[option] }}</span>
+                  </span>
+                </label>
+              }
+            </div>
+            @if (showErrors() && form.controls.targetOpportunity.invalid) {
+              <p class="field__error" id="target-opportunity-error">
+                Escolha uma das três opções para continuar.
+              </p>
+            }
+          </fieldset>
+
+          <fieldset class="field-group">
+            <legend>Área de interesse</legend>
+            <div class="chip-grid">
+              @for (area of interestAreas; track area) {
+                <label class="chip-option">
+                  <input
+                    type="radio"
+                    formControlName="interestArea"
+                    [value]="area"
+                    [attr.aria-invalid]="showErrors() && form.controls.interestArea.invalid"
+                    [attr.aria-describedby]="
+                      showErrors() && form.controls.interestArea.invalid ? 'interest-area-error' : null
+                    "
+                  />
+                  {{ area }}
+                </label>
+              }
+            </div>
+            @if (showErrors() && form.controls.interestArea.invalid) {
+              <p class="field__error" id="interest-area-error">
+                Escolha uma área de interesse, mesmo que ainda seja uma dúvida.
+              </p>
+            }
+          </fieldset>
+
+          <div class="field">
+            <label class="field-label" for="professionalGoal">Objetivo profissional em poucas palavras</label>
+            <p class="field__hint" id="professional-goal-hint">
+              Exemplo fictício: “{{ goalExample }}”
+            </p>
+            <textarea
+              id="professionalGoal"
+              class="textarea"
+              [class.textarea--invalid]="showErrors() && form.controls.professionalGoal.invalid"
+              formControlName="professionalGoal"
+              [attr.maxlength]="maxLongText"
+              [attr.aria-invalid]="showErrors() && form.controls.professionalGoal.invalid"
+              [attr.aria-describedby]="
+                showErrors() && form.controls.professionalGoal.invalid
+                  ? 'professional-goal-hint professional-goal-error'
+                  : 'professional-goal-hint'
+              "
+            ></textarea>
+            <span
+              class="char-counter"
+              [class.char-counter--limit]="textLength(form.controls.professionalGoal.value) >= maxLongText"
+            >
+              {{ textLength(form.controls.professionalGoal.value) }}/{{ maxLongText }}
+            </span>
+            @if (showErrors() && form.controls.professionalGoal.hasError('required')) {
+              <p class="field__error" id="professional-goal-error">
+                Escreva um objetivo curto para o currículo demonstrativo.
+              </p>
+            } @else if (showErrors() && form.controls.professionalGoal.hasError('minlength')) {
+              <p class="field__error" id="professional-goal-error">
+                Use ao menos 20 caracteres para formar uma frase compreensível.
+              </p>
+            } @else if (showErrors() && form.controls.professionalGoal.hasError('maxlength')) {
+              <p class="field__error" id="professional-goal-error">
+                O objetivo deve ter no máximo {{ maxLongText }} caracteres.
+              </p>
+            }
+          </div>
+        </section>
+      }
+
+      @case (1) {
+        <section class="form-section" aria-labelledby="step-heading">
+          <div class="form-section__head">
+            <p class="eyebrow">Etapa 2 de 4</p>
+            <h2 id="step-heading" tabindex="-1">Formação</h2>
+            <p>Informe apenas dados de exemplo sobre escola, curso ou área de formação.</p>
+          </div>
+
+          <div class="form-grid">
+            <div class="field">
+              <label class="field-label" for="educationLevel">Nível de escolaridade</label>
+              <select
+                id="educationLevel"
+                class="select"
+                [class.select--invalid]="showErrors() && form.controls.educationLevel.invalid"
+                formControlName="educationLevel"
+                [attr.aria-invalid]="showErrors() && form.controls.educationLevel.invalid"
+                [attr.aria-describedby]="
+                  showErrors() && form.controls.educationLevel.invalid ? 'education-level-error' : null
+                "
+              >
+                <option value="" disabled>Selecione uma opção</option>
+                @for (level of educationLevels; track level) {
+                  <option [value]="level">{{ level }}</option>
+                }
+              </select>
+              @if (showErrors() && form.controls.educationLevel.invalid) {
+                <p class="field__error" id="education-level-error">
+                  Escolha o nível de escolaridade demonstrativo.
+                </p>
+              }
+            </div>
+
+            <div class="field">
+              <label class="field-label" for="courseOrSchoolArea">Curso, escola ou área de formação</label>
+              <input
+                id="courseOrSchoolArea"
+                class="input"
+                [class.input--invalid]="showErrors() && form.controls.courseOrSchoolArea.invalid"
+                type="text"
+                formControlName="courseOrSchoolArea"
+                [attr.maxlength]="maxShortText"
+                placeholder="Exemplo fictício: Formação geral"
+                [attr.aria-invalid]="showErrors() && form.controls.courseOrSchoolArea.invalid"
+                [attr.aria-describedby]="
+                  showErrors() && form.controls.courseOrSchoolArea.invalid
+                    ? 'course-area-hint course-area-error'
+                    : 'course-area-hint'
+                "
+              />
+              <p class="field__hint" id="course-area-hint">
+                Use um nome genérico, sem dados de uma instituição real.
+              </p>
+              @if (showErrors() && form.controls.courseOrSchoolArea.invalid) {
+                <p class="field__error" id="course-area-error">
+                  Informe uma área de formação de exemplo.
+                </p>
+              }
+            </div>
+
+            <div class="field">
+              <label class="field-label" for="educationStatus">Situação da formação</label>
+              <select
+                id="educationStatus"
+                class="select"
+                [class.select--invalid]="showErrors() && form.controls.educationStatus.invalid"
+                formControlName="educationStatus"
+                [attr.aria-invalid]="showErrors() && form.controls.educationStatus.invalid"
+                [attr.aria-describedby]="
+                  showErrors() && form.controls.educationStatus.invalid
+                    ? 'education-status-error'
+                    : null
+                "
+              >
+                <option value="" disabled>Selecione uma opção</option>
+                @for (status of educationStatuses; track status) {
+                  <option [value]="status">{{ status }}</option>
+                }
+              </select>
+              @if (showErrors() && form.controls.educationStatus.invalid) {
+                <p class="field__error" id="education-status-error">
+                  Escolha a situação da formação demonstrativa.
+                </p>
+              }
+            </div>
+
+            <div class="field">
+              <label class="field-label" for="expectedCompletion">Previsão de conclusão (opcional)</label>
+              <input
+                id="expectedCompletion"
+                class="input"
+                type="text"
+                formControlName="expectedCompletion"
+                [attr.maxlength]="60"
+                placeholder="Exemplo fictício: previsão em 2027"
+                aria-describedby="expected-completion-hint"
+              />
+              <p class="field__hint" id="expected-completion-hint">
+                Campo fictício. Não use uma data ou informação pessoal real.
+              </p>
+            </div>
+          </div>
+
+          <fieldset class="field-group">
+            <legend>
+              Cursos e oficinas demonstrativos
+              <span class="legend-optional">(opcional)</span>
+            </legend>
+            <p class="field__hint">Você pode adicionar cursos de exemplo ou deixar esta seção vazia.</p>
+
+            <div class="stack" formArrayName="courses">
+              @for (course of form.controls.courses.controls; track course; let i = $index) {
+                <div class="course-row" [formGroupName]="i">
+                  <div class="field">
+                    <label class="field-label" [for]="'course-name-' + i">Nome do curso ou oficina</label>
+                    <input
+                      [id]="'course-name-' + i"
+                      class="input"
+                      type="text"
+                      formControlName="name"
+                      [attr.maxlength]="maxShortText"
+                      [attr.aria-invalid]="course.controls.name.invalid"
+                      [attr.aria-describedby]="
+                        course.controls.name.hasError('maxlength')
+                          ? 'course-name-error-' + i
+                          : null
+                      "
+                      placeholder="Exemplo fictício: Informática básica"
+                    />
+                    @if (course.controls.name.hasError('maxlength')) {
+                      <p class="field__error" [id]="'course-name-error-' + i">
+                        Use no máximo {{ maxShortText }} caracteres.
+                      </p>
+                    }
+                  </div>
+                  <div class="field">
+                    <label class="field-label" [for]="'course-status-' + i">Situação</label>
+                    <select [id]="'course-status-' + i" class="select" formControlName="status">
+                      @for (status of courseStatuses; track status) {
+                        <option [value]="status">{{ status }}</option>
+                      }
+                    </select>
+                  </div>
+                  <button
+                    type="button"
+                    class="btn btn-secondary course-remove"
+                    (click)="removeCourse(i)"
+                    [attr.aria-label]="'Remover curso demonstrativo ' + (i + 1)"
+                  >
+                    Remover
+                  </button>
+                </div>
+              }
+            </div>
+
+            <button type="button" class="btn btn-secondary" (click)="addCourse()">
+              + Adicionar curso demonstrativo
+            </button>
+          </fieldset>
+        </section>
+      }
+
+      @case (2) {
+        <section class="form-section" aria-labelledby="step-heading">
+          <div class="form-section__head">
+            <p class="eyebrow">Etapa 3 de 4</p>
+            <h2 id="step-heading" tabindex="-1">Vivências e competências</h2>
+            <p>
+              Experiências escolares, comunitárias, familiares e informais também contam. Marque o
+              que você quer incluir no currículo demonstrativo.
+            </p>
+          </div>
+
+          <fieldset class="field-group">
+            <legend>
+              Vivências e experiências
+              <span class="legend-optional">(opcional)</span>
+            </legend>
+            <p class="field__hint" id="experience-note">
+              As descrições exibidas no currículo serão exemplos predefinidos conforme o tipo da
+              vivência. Nenhuma IA analisará o texto que você escrever.
+            </p>
+
+            <div class="experience-list" formArrayName="experiences">
+              @for (experience of form.controls.experiences.controls; track experience; let i = $index) {
+                <div class="experience-item" [formGroupName]="i">
+                  <label class="experience-item__toggle" [for]="'experience-check-' + i">
+                    <input
+                      [id]="'experience-check-' + i"
+                      type="checkbox"
+                      formControlName="selected"
+                    />
+                    <span>{{ experience.controls.type.value }}</span>
+                  </label>
+
+                  @if (experience.controls.selected.value) {
+                    <div class="experience-item__body">
+                      <div class="field">
+                        <label class="field-label" [for]="'experience-description-' + i">
+                          Descreva com suas palavras
+                          <span class="legend-optional">(opcional, fictício)</span>
+                        </label>
+                        <textarea
+                          [id]="'experience-description-' + i"
+                          class="textarea"
+                          [class.textarea--invalid]="experience.controls.description.invalid"
+                          formControlName="description"
+                          [attr.maxlength]="maxLongText"
+                          [placeholder]="experiencePlaceholders[experience.controls.type.value]"
+                          [attr.aria-invalid]="experience.controls.description.invalid"
+                          [attr.aria-describedby]="
+                            experience.controls.description.invalid
+                              ? 'experience-note experience-description-error-' + i
+                              : 'experience-note'
+                          "
+                        ></textarea>
+                        <span
+                          class="char-counter"
+                          [class.char-counter--limit]="
+                            textLength(experience.controls.description.value) >= maxLongText
+                          "
+                        >
+                          {{ textLength(experience.controls.description.value) }}/{{ maxLongText }}
+                        </span>
+                        @if (experience.controls.description.hasError('maxlength')) {
+                          <p class="field__error" [id]="'experience-description-error-' + i">
+                            Use no máximo {{ maxLongText }} caracteres.
+                          </p>
+                        }
+                      </div>
+                    </div>
+                  }
+                </div>
+              }
+            </div>
+          </fieldset>
+
+          <fieldset class="field-group">
+            <legend>Competências <span class="legend-optional">(selecione ao menos uma)</span></legend>
+            <p class="field__hint" id="skills-hint">
+              Escolha apenas competências que você conseguiria explicar com um exemplo em uma
+              conversa.
+            </p>
+            <div class="chip-grid" formArrayName="skills">
+              @for (skill of form.controls.skills.controls; track skill; let i = $index) {
+                <label class="chip-option" [formGroupName]="i">
+                  <input
+                    type="checkbox"
+                    formControlName="selected"
+                    [attr.aria-invalid]="showErrors() && !hasAnySkill()"
+                    [attr.aria-describedby]="
+                      showErrors() && !hasAnySkill() ? 'skills-hint skills-error' : 'skills-hint'
+                    "
+                  />
+                  {{ skill.controls.name.value }}
+                </label>
+              }
+            </div>
+            @if (showErrors() && !hasAnySkill()) {
+              <p class="field__error" id="skills-error">
+                Selecione ao menos uma competência para continuar.
+              </p>
+            }
+          </fieldset>
+        </section>
+      }
+
+      @case (3) {
+        <section class="form-section" aria-labelledby="step-heading">
+          <div class="form-section__head">
+            <p class="eyebrow">Etapa 4 de 4</p>
+            <h2 id="step-heading" tabindex="-1">Revise as informações</h2>
+            <p>
+              Confira o resumo abaixo. Se algo estiver estranho, volte e edite antes de gerar o
+              currículo demonstrativo.
+            </p>
+          </div>
+
+          <div class="review-grid">
+            <article class="review-card">
+              <div class="review-card__head">
+                <h3>Objetivo profissional</h3>
+                <button
+                  type="button"
+                  class="btn btn-quiet review-card__edit"
+                  (click)="goToStep(0)"
+                >
+                  Editar<span class="sr-only"> objetivo profissional</span>
+                </button>
+              </div>
+              <ul class="review-list">
+                <li><strong>Oportunidade:</strong> {{ form.controls.targetOpportunity.value || 'Não informada' }}</li>
+                <li><strong>Área:</strong> {{ form.controls.interestArea.value || 'Não informada' }}</li>
+                <li><strong>Objetivo:</strong> {{ form.controls.professionalGoal.value || 'Não informado' }}</li>
+              </ul>
+            </article>
+
+            <article class="review-card">
+              <div class="review-card__head">
+                <h3>Formação</h3>
+                <button type="button" class="btn btn-quiet review-card__edit" (click)="goToStep(1)">
+                  Editar<span class="sr-only"> formação</span>
+                </button>
+              </div>
+              <ul class="review-list">
+                <li><strong>Nível:</strong> {{ form.controls.educationLevel.value || 'Não informado' }}</li>
+                <li><strong>Área:</strong> {{ form.controls.courseOrSchoolArea.value || 'Não informada' }}</li>
+                <li><strong>Situação:</strong> {{ form.controls.educationStatus.value || 'Não informada' }}</li>
+                @if (form.controls.expectedCompletion.value) {
+                  <li><strong>Conclusão:</strong> {{ form.controls.expectedCompletion.value }}</li>
+                }
+              </ul>
+            </article>
+
+            <article class="review-card">
+              <div class="review-card__head">
+                <h3>Vivências</h3>
+                <button type="button" class="btn btn-quiet review-card__edit" (click)="goToStep(2)">
+                  Editar<span class="sr-only"> vivências</span>
+                </button>
+              </div>
+              @if (selectedExperiences().length > 0) {
+                <ul class="review-list">
+                  @for (experience of selectedExperiences(); track experience.type) {
+                    <li>{{ experience.type }}</li>
+                  }
+                </ul>
+              } @else {
+                <p class="review-empty">Nenhuma vivência selecionada. Essa seção ficará oculta.</p>
+              }
+            </article>
+
+            <article class="review-card">
+              <div class="review-card__head">
+                <h3>Competências</h3>
+                <button type="button" class="btn btn-quiet review-card__edit" (click)="goToStep(2)">
+                  Editar<span class="sr-only"> competências</span>
+                </button>
+              </div>
+              @if (selectedSkills().length > 0) {
+                <ul class="review-list">
+                  @for (skill of selectedSkills(); track skill) {
+                    <li>{{ skill }}</li>
+                  }
+                </ul>
+              } @else {
+                <p class="review-empty">Nenhuma competência selecionada.</p>
+              }
+            </article>
+
+            <article class="review-card">
+              <div class="review-card__head">
+                <h3>Cursos e oficinas</h3>
+                <button type="button" class="btn btn-quiet review-card__edit" (click)="goToStep(1)">
+                  Editar<span class="sr-only"> cursos e oficinas</span>
+                </button>
+              </div>
+              @if (courseNames().length > 0) {
+                <ul class="review-list">
+                  @for (course of courseNames(); track $index) {
+                    <li>{{ course }}</li>
+                  }
+                </ul>
+              } @else {
+                <p class="review-empty">Nenhum curso informado. Essa seção ficará oculta.</p>
+              }
+            </article>
+          </div>
+
+          <div class="review-confirm">
+            <label
+              class="checkbox-row"
+              [class.checkbox-row--invalid]="
+                showErrors() && form.controls.fictionalDataConfirmed.invalid
+              "
+            >
+              <input
+                type="checkbox"
+                formControlName="fictionalDataConfirmed"
+                [attr.aria-invalid]="
+                  showErrors() && form.controls.fictionalDataConfirmed.invalid
+                "
+                [attr.aria-describedby]="
+                  showErrors() && form.controls.fictionalDataConfirmed.invalid
+                    ? 'fictional-data-error'
+                    : null
+                "
+              />
+              <span>
+                Confirmo que as informações usadas nesta demonstração são fictícias e que não
+                preenchi dados pessoais reais.
+              </span>
+            </label>
+            @if (showErrors() && form.controls.fictionalDataConfirmed.invalid) {
+              <p class="field__error" id="fictional-data-error">
+                Marque a confirmação para gerar o currículo demonstrativo.
+              </p>
+            }
+          </div>
+
+          <div class="info-callout">
+            <strong>Como o currículo será montado</strong>
+            <p>
+              O TrampoIA apenas organiza os campos preenchidos, oculta seções vazias e usa
+              descrições predefinidas para as vivências. Nenhuma IA analisa, pontua ou classifica
+              as informações.
+            </p>
+          </div>
+        </section>
+      }
+    }
+
+    <div class="form-nav">
+      <p class="form-nav__hint" aria-live="polite">
+        @if (showErrors()) {
+          Revise os campos indicados antes de continuar.
+        } @else if (currentStep() < 3) {
+          Etapa {{ currentStep() + 1 }} de 4. Você pode voltar e editar a qualquer momento.
+        } @else {
+          Ao gerar, nenhum dado sai deste navegador.
+        }
+      </p>
+      <div class="form-nav__group">
+        @if (currentStep() > 0) {
+          <button type="button" class="btn btn-secondary" (click)="goBack()">Voltar</button>
+        }
+        @if (currentStep() < 3) {
+          <button type="button" class="btn btn-primary" (click)="goNext()">Continuar</button>
+        } @else {
+          <button type="submit" class="btn btn-primary btn-lg">
+            Gerar currículo demonstrativo
+          </button>
+        }
+      </div>
+    </div>
+  </form>
+
+  <p class="form-privacy">
+    Lembrete: não informe CPF, RG, data de nascimento, endereço, telefone ou e-mail. Ao recarregar a
+    página, o perfil fictício inicial pode ser restaurado.
+  </p>
+</div>

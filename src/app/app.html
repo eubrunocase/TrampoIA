@@ -1,0 +1,51 @@
+<a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+<header class="site-header no-print">
+  <div class="container site-header__inner">
+    <a class="brand" routerLink="/" aria-label="TrampoIA, página inicial">
+      <span class="brand__mark" aria-hidden="true">T</span>
+      <span class="brand__text">
+        <strong>TrampoIA</strong>
+        <span>protótipo demonstrativo</span>
+      </span>
+    </a>
+
+    <nav class="site-nav" aria-label="Navegação principal">
+      <a routerLink="/" routerLinkActive="site-nav__link--active" [routerLinkActiveOptions]="{ exact: true }">
+        Início
+      </a>
+      <a routerLink="/curriculo" routerLinkActive="site-nav__link--active">Currículo</a>
+      <a routerLink="/entrevista" routerLinkActive="site-nav__link--active">Entrevista</a>
+      <a routerLink="/sobre" routerLinkActive="site-nav__link--active">Sobre</a>
+    </nav>
+  </div>
+
+  <app-simulation-alert [compact]="true" />
+</header>
+
+<main id="conteudo" class="site-main" tabindex="-1">
+  <router-outlet />
+</main>
+
+<footer class="site-footer no-print">
+  <div class="container site-footer__inner">
+    <div>
+      <strong class="site-footer__brand">TrampoIA</strong>
+      <p>
+        Protótipo acadêmico demonstrativo para explorar uma experiência de preparação para o
+        primeiro emprego. Nenhum dado é enviado ou armazenado.
+      </p>
+    </div>
+    <nav aria-label="Links do rodapé">
+      <a routerLink="/sobre">Sobre o protótipo</a>
+      <a routerLink="/sobre" fragment="nao-faz">O que este protótipo não faz</a>
+      <a routerLink="/curriculo">Formulário demonstrativo</a>
+    </nav>
+  </div>
+  <div class="container">
+    <p class="site-footer__note">
+      Sem inteligência artificial generativa, sem backend e sem banco de dados. Não informe dados
+      pessoais reais.
+    </p>
+  </div>
+</footer>

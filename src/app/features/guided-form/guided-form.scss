@@ -1,0 +1,47 @@
+app-step-indicator {
+  display: block;
+  margin-bottom: 1.25rem;
+}
+
+.form {
+  margin-top: 0;
+}
+
+.legend-optional {
+  color: var(--color-muted);
+  font-size: 0.8rem;
+  font-weight: 400;
+}
+
+.review-confirm {
+  display: grid;
+  gap: 0.4rem;
+  margin-top: 1.1rem;
+}
+
+.form-section .info-callout {
+  margin-top: 1.1rem;
+}
+
+.form-nav {
+  padding-top: 0.5rem;
+}
+
+.form-privacy {
+  max-width: var(--reading-width);
+  margin: 1.5rem auto 0;
+  color: var(--color-muted);
+  font-size: 0.85rem;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.field-group > .btn {
+  margin-top: 0.85rem;
+}
+
+@media (max-width: 760px) {
+  .form-section {
+    padding: 1.1rem;
+  }
+}
